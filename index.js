@@ -28,13 +28,13 @@ app.get("/", (req, res) => {
 // Init Middleware
 app.use(express.json());
 
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("client/build"));
-// }
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
-// app.use("/api/users", require("./routes/api/users"));
-// app.use("/api/auth", require("./routes/api/auth"));
-// app.use("/api/profile", require("./routes/api/profile"));
-// app.use("/api/generatepage", require("./routes/api/generatepage"));
+app.use("/api/users", require("./routes/users"));
+app.use("/api/auth", require("./routes/auth"));
+app.use("/api/profile", require("./routes/profile"));
+app.use("/api/generatepage", require("./routes/generatepage"));
 
 

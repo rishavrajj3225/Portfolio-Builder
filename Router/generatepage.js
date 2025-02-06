@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
     // Construct file path dynamically
     const filePath = path.resolve(
       __dirname,
-      "../../client/src/pages/CustomPage.js"
+      "../../views/src/pages/CustomPage.js"
     );
 
     // Write to file asynchronously
