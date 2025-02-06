@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
-import logo from '../../../public/favicon.ico';
-export default class Header extends Component {
-  render() {
-    return (
-      <div className="row">
-        <div className="logo">
-          <img src={logo} width="100" height="50" />
-        </div>
-      </div>
-    );
-  }
-} 
+import React from "react";
+import logo from "../../../public/favicon.ico";
+
+const Header = () => {
+  return (
+    <div className="flex justify-center items-center py-4 bg-gray-800">
+      <img src={logo} alt="Logo" className="w-24 h-auto" />
+    </div>
+  );
+};
+
+export default Header;

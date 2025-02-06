@@ -1,29 +1,29 @@
-import React from 'react' ;
-import "./style.css";
-import Button from '../Button';
-import { Jumbotron } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "../Button";
 
-function Jumbrotron (props){
-  let history = useHistory();
-// console.log(props);
+function Jumbotron({ firstName }) {
+  const navigate = useNavigate();
 
-	function handleClick() {
-		return (history.push("/login"))
-  }
-  return(
-    <Jumbotron id="jumbo">
-      <h1>Welcome  {props.firstName}</h1>
-      <h1> Create and Customize a Portfolio </h1>
-      <p>
-        Beautiful designs, powerful features, and the freedom to build anything you want. 
-        Portfolio Builder is both free and priceless at the same time.
+  return (
+    <div className="bg-blue-600 text-white text-center py-16 px-6 rounded-lg shadow-lg">
+      {firstName && (
+        <h1 className="text-3xl font-bold">Welcome, {firstName}!</h1>
+      )}
+      <h1 className="text-4xl font-extrabold mt-2">
+        Create and Customize a Portfolio
+      </h1>
+      <p className="text-lg mt-4 max-w-2xl mx-auto">
+        Beautiful designs, powerful features, and the freedom to build anything
+        you want. Portfolio Builder is both free and priceless at the same time.
       </p>
-      <p>
-        <Button onClick={handleClick} className="btn btn-info btn-lg" name="Get Started"></Button>
-      </p>
-    </Jumbotron>
-  )
+      <Button
+        onClick={() => navigate("/login")}
+        className="mt-6 px-6 py-3 bg-white text-blue-600 font-bold rounded-lg shadow-md hover:bg-gray-200 transition"
+        name="Get Started"
+      />
+    </div>
+  );
 }
 
-export default Jumbrotron;
+export default Jumbotron;

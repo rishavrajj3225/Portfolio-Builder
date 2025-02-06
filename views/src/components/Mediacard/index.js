@@ -1,72 +1,86 @@
-import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  content: {
-    flex: '1 0 auto',
-  },
-  cover: {
-    width: 151,
-  },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
-  playIcon: {
-    height: 38,
-    width: 38,
-  },
-}));
+import React, { useState } from "react";
 
 export default function MediaControlCard() {
-  const classes = useStyles();
-  const theme = useTheme();
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handlePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
 
   return (
-    <Card className={classes.root}>
-      <div className={classes.details}>
-        <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            Live From Space
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            Mac Miller
-          </Typography>
-        </CardContent>
-        <div className={classes.controls}>
-          <IconButton aria-label="previous">
-            {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
-          </IconButton>
-          <IconButton aria-label="play/pause">
-            <PlayArrowIcon className={classes.playIcon} />
-          </IconButton>
-          <IconButton aria-label="next">
-            {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
-          </IconButton>
+    <div className="flex bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="flex flex-col justify-between p-4 w-full">
+        <div>
+          <h5 className="text-xl font-semibold">Live From Space</h5>
+          <p className="text-sm text-gray-600">Mac Miller</p>
+        </div>
+        <div className="flex items-center space-x-4 mt-4">
+          <button
+            className="text-gray-500 hover:text-gray-700"
+            aria-label="previous"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+          <button
+            className="text-blue-500 hover:text-blue-700"
+            aria-label="play/pause"
+            onClick={handlePlayPause}
+          >
+            <svg
+              className={`w-10 h-10 transform ${isPlaying ? "rotate-180" : ""}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M5 3l14 9-14 9V3z"
+              />
+            </svg>
+          </button>
+          <button
+            className="text-gray-500 hover:text-gray-700"
+            aria-label="next"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M5 3l7 7-7 7"
+              />
+            </svg>
+          </button>
         </div>
       </div>
-      <CardMedia
-        className={classes.cover}
-        image="/static/images/cards/live-from-space.jpg"
-        title="Live from space album cover"
+      <div
+        className="w-40 h-40 bg-cover bg-center"
+        style={{
+          backgroundImage: 'url("/static/images/cards/live-from-space.jpg")',
+        }}
       />
-    </Card>
+    </div>
   );
 }

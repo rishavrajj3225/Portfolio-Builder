@@ -1,104 +1,52 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: 445,
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
-  avatar: {
-    backgroundColor: red[500],
-  },
-}));
+import React, { useState } from "react";
 
 export default function RecipeReviewCard() {
-  const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   return (
-    <Card className={classes.root}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
-      />
-      <CardMedia
-        className={classes.media}
-        image="/static/images/cards/paella.jpg"
-        title="Paella dish"
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          Your Product Summary here
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
+    <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+      <div className="flex items-center p-4">
+        <div className="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center">
+          R
+        </div>
+        <div className="ml-4">
+          <h2 className="text-xl font-bold">Shrimp and Chorizo Paella</h2>
+          <p className="text-gray-500">September 14, 2016</p>
+        </div>
+      </div>
+      <div
+        className="w-full h-56 bg-cover bg-center"
+        style={{ backgroundImage: "url('/static/images/cards/paella.jpg')" }}
+      ></div>
+      <div className="p-4">
+        <p className="text-gray-700">Your Product Summary here</p>
+      </div>
+      <div className="flex justify-between p-4">
+        <button className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600">
+          <i className="fas fa-heart"></i>
+        </button>
+        <button className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+          <i className="fas fa-share"></i>
+        </button>
+        <button
+          className={`p-2 bg-gray-200 text-gray-700 rounded-md ${
+            expanded ? "rotate-180" : ""
+          } transition-all`}
           onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
         >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Enter your text here
-          </Typography>
-        </CardContent>
-      </Collapse>
-    </Card>
+          <i className="fas fa-chevron-down"></i>
+        </button>
+      </div>
+      {expanded && (
+        <div className="p-4">
+          <h3 className="font-semibold">Method:</h3>
+          <p>Enter your text here</p>
+        </div>
+      )}
+    </div>
   );
 }
