@@ -1,199 +1,87 @@
-import React, { Component } from "react";
-import Dialog from "@material-ui/core/Dialog";
-import AppBar from "@material-ui/core/AppBar";
-import {
-  ThemeProvider as MuiThemeProvider,
-  createMuiTheme,
-} from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
-import Icon from "@material-ui/core/Icon";
-import TypoGraphy from "@material-ui/core/Typography";
-import Toolbar from "@material-ui/core/Toolbar";
-import { grey } from "@material-ui/core/colors";
+import React from "react";
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#17A2b8",
-    },
-    secondary: {
-      main: grey[900],
-    },
-  },
-});
+export default function ProjectDetails({
+  values,
+  handleChange,
+  nextStep,
+  prevStep,
+}) {
+  const projects = [
+    { key: "One", title: "Project One" },
+    { key: "Two", title: "Project Two" },
+    { key: "Three", title: "Project Three" },
+  ];
 
-export class ProjectDetails extends Component {
-  continue = (e) => {
-    e.preventDefault();
-    this.props.nextStep();
-  };
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+      <div className="bg-white w-full max-w-3xl rounded-lg shadow-lg p-6">
+        {/* Header */}
+        <div className="flex justify-between items-center border-b pb-4">
+          <h2 className="text-xl font-bold text-gray-800">
+            Enter Project Details
+          </h2>
+          <button
+            onClick={prevStep}
+            className="text-red-500 hover:text-red-700 text-2xl"
+          >
+            &times;
+          </button>
+        </div>
 
-  back = (e) => {
-    e.preventDefault();
-    this.props.prevStep();
-  };
-
-  render() {
-    const { values, handleChange } = this.props;
-    return (
-      <MuiThemeProvider theme={theme}>
-        <>
-          <Dialog open fullWidth maxWidth="lg">
-            <AppBar color="primary" position="static">
-              <Link to="/home">
-                <Icon color="secondary">backspace</Icon>
-              </Link>
-              <Toolbar>
-                <TypoGraphy variant="title" color="inherit">
-                  <h1>Enter Project Details</h1>
-                </TypoGraphy>
-              </Toolbar>
-            </AppBar>
-            <div className="container">
-              <TextField
-                placeholder="ProjectOneTitle"
-                label="Project One Title"
-                onChange={handleChange("projectOneTitle")}
-                defaultValue={values.projectOneTitle}
-                margin="normal"
-                fullWidth
+        {/* Form Fields */}
+        <div className="space-y-6 mt-4">
+          {projects.map((project) => (
+            <div key={project.key} className="p-4 border rounded">
+              <h3 className="text-lg font-semibold text-gray-700">
+                {project.title}
+              </h3>
+              <input
+                type="text"
+                placeholder={`${project.title} Title`}
+                value={values[`project${project.key}Title`]}
+                onChange={handleChange(`project${project.key}Title`)}
+                className="w-full p-2 border rounded mt-2"
               />
-              <br />
-              <TextField
-                placeholder="ProjectOneText"
-                label="Project One Text"
-                onChange={handleChange("projectOneText")}
-                defaultValue={values.projectOneText}
-                margin="normal"
-                fullWidth
+              <textarea
+                placeholder={`${project.title} Description`}
+                value={values[`project${project.key}Text`]}
+                onChange={handleChange(`project${project.key}Text`)}
+                className="w-full p-2 border rounded mt-2"
               />
-              <br />
-              <TextField
-                placeholder="ProjectOneUrl"
-                label="Project One Link"
-                onChange={handleChange("projectOneUrl")}
-                defaultValue={values.projectOneUrl}
-                margin="normal"
-                fullWidth
+              <input
+                type="text"
+                placeholder={`${project.title} Link`}
+                value={values[`project${project.key}Url`]}
+                onChange={handleChange(`project${project.key}Url`)}
+                className="w-full p-2 border rounded mt-2"
               />
-               <br />
-              <TextField
-                placeholder="projectOneImage"
-                label="Project One Image"
-                onChange={handleChange("projectOneImage")}
-                defaultValue={values.projectOneImage}
-                margin="normal"
-                fullWidth
+              <input
+                type="text"
+                placeholder={`${project.title} Image URL`}
+                value={values[`project${project.key}Image`]}
+                onChange={handleChange(`project${project.key}Image`)}
+                className="w-full p-2 border rounded mt-2"
               />
             </div>
+          ))}
+        </div>
 
-            <br />
-
-            <div className="container">
-              <TextField
-                placeholder="ProjectTwoTitle"
-                label="Project Two Title"
-                onChange={handleChange("projectTwoTitle")}
-                defaultValue={values.projectTwoTitle}
-                margin="normal"
-                fullWidth
-              />
-              <br />
-              <TextField
-                placeholder="ProjectTwoText"
-                label="Project Two Text"
-                onChange={handleChange("projectTwoText")}
-                defaultValue={values.projectTwoText}
-                margin="normal"
-                fullWidth
-              />
-              <br />
-              <TextField
-                placeholder="ProjectTwoUrl"
-                label="Project Two Link"
-                onChange={handleChange("projectTwoUrl")}
-                defaultValue={values.projectTwoUrl}
-                margin="normal"
-                fullWidth
-              />
-                <TextField
-                placeholder="projectTwoImage"
-                label="Project Two Image"
-                onChange={handleChange("projectTwoImage")}
-                defaultValue={values.projectTwoImage}
-                margin="normal"
-                fullWidth
-              />
-            </div>
-
-            <br />
-            <div className="container">
-              <TextField
-                placeholder="ProjectThreeTitle"
-                label="Project Three Title"
-                onChange={handleChange("projectThreeTitle")}
-                defaultValue={values.projectThreeTitle}
-                margin="normal"
-                fullWidth
-              />
-              <br />
-              <TextField
-                placeholder="ProjectThreeText"
-                label="Project Three Text"
-                onChange={handleChange("projectThreeText")}
-                defaultValue={values.projectThreeText}
-                margin="normal"
-                fullWidth
-              />
-              <br />
-              <TextField
-                placeholder="ProjectThreeUrl"
-                label="Project Three Link"
-                onChange={handleChange("projectThreeUrl")}
-                defaultValue={values.projectThreeUrl}
-                margin="normal"
-                fullWidth
-              />
-                <TextField
-                placeholder="projectThreeImage"
-                label="Project Three Image"
-                onChange={handleChange("projectThreeImage")}
-                defaultValue={values.projectThreeImage}
-                margin="normal"
-                fullWidth
-              />
-            </div>
-
-            <br />
-
-            <div className="row" style={{marginLeft: 'auto', marginRight: 'auto'}}>
-              <div>
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  onClick={this.back}
-                >
-                  Back
-                </Button>
-              </div>
-              <div style={{marginLeft: '10px', marginRight: '10px'}}>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  onClick={this.continue}
-                >
-                  Continue
-                </Button>
-              </div>
-            </div>
-            <br />
-          </Dialog>
-        </>
-      </MuiThemeProvider>
-    );
-  }
+        {/* Buttons */}
+        <div className="flex justify-between mt-6">
+          <button
+            onClick={prevStep}
+            className="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500"
+          >
+            Back
+          </button>
+          <button
+            onClick={nextStep}
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
-
-export default ProjectDetails;

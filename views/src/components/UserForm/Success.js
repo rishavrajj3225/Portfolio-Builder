@@ -1,37 +1,42 @@
-import React, { Component } from 'react';
-import Dialog from '@material-ui/core/Dialog';
-import AppBar from '@material-ui/core/AppBar';
-import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
+import React from "react";
 import { Link } from "react-router-dom";
 import Nav from "../UserNav";
 
-export class Success extends Component {
-  continue = e => {
-    e.preventDefault();
-    // PROCESS FORM //
-    this.props.nextStep();
-  };
-  back = e => {
-    e.preventDefault();
-    this.props.prevStep();
-  };
-  render() {
-    return (
-      <div>
-        <Nav />
-        <MuiThemeProvider>
-          <div>
-            <Dialog open fullWidth maxWidth='sm'>
-              <Link to="/home"><button>x</button></Link>
-              <AppBar title="Success" />
-              <h1>Thank You For Your Submission</h1>
-              <p>You will get an email with further instructions.</p>
-            </Dialog>
+export default function Success() {
+  return (
+    <>
+      <Nav />
+      <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+        <div className="bg-white max-w-lg w-full rounded-lg shadow-lg p-6 text-center">
+          {/* Close Button */}
+          <div className="flex justify-end">
+            <Link
+              to="/home"
+              className="text-red-500 hover:text-red-700 text-xl"
+            >
+              &times;
+            </Link>
           </div>
-        </MuiThemeProvider>
-      </div>
-    );
-  }
-}
 
-export default Success;
+          {/* Content */}
+          <h2 className="text-2xl font-semibold text-gray-800">
+            Thank You For Your Submission
+          </h2>
+          <p className="text-gray-600 mt-2">
+            You will receive an email with further instructions.
+          </p>
+
+          {/* Button to Redirect Home */}
+          <div className="mt-6">
+            <Link
+              to="/home"
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              Go to Home
+            </Link>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
